@@ -14,7 +14,12 @@ namespace Warehouse_operationsApp.Helper
             CreateMap<Receipt_and_expense_documents, Receipt_and_expense_documentsDto>();
             CreateMap<Information_about_documents, Information_about_documentsDto>();
             CreateMap<Unit, UnitDto>();
+            CreateMap<Ostatki, OstatkiDto>();
+            CreateMap<Product, ProductsDto>();
+            CreateMap<Users, UsersDto>();
+            CreateMap<Warehouses, WarehousesDto>();
             CreateMap<DoljnostiDto, Doljnosti>();
+            CreateMap<SuppliersDto, Suppliers>();
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Warehouse_operationsApp.Controllers
         [ProducesResponseType(200, Type = typeof(Information_about_documents))]
         [ProducesResponseType(400)]
 
-        public IActionResult GetProductTypeByID(int id_inf)
+        public IActionResult GetInformation_about_documentsByID(int id_inf)
         {
             if (!_information_About_DocumentsRepository.Information_about_documentsExists(id_inf))
                 return NotFound();
@@ -55,7 +55,7 @@ namespace Warehouse_operationsApp.Controllers
 
         public IActionResult GetInformation_About_DocumentssByProduct(int product)
         {
-            var producttos = _mapper.Map<List<Product_typeDto>>(_information_About_DocumentsRepository.GetInformation_About_DocumentssById(product));
+            var producttos = _mapper.Map<List<Information_about_documentsDto>>(_information_About_DocumentsRepository.GetInformation_About_DocumentssById(product));
 
             if (!ModelState.IsValid)
                 return BadRequest();
