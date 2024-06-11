@@ -15,6 +15,19 @@ namespace Warehouse_operationsApp.Repository
             _context = context;
             _mapper = mapper;
         }
+
+        public bool CreateOstatki(int id_warehouses, int ProductId, Ostatki Ostatki_create)
+        {
+            _context.Add(Ostatki_create);
+            return Save();
+        }
+
+        public bool DeleteOstatki(Ostatki Ostatki_delete)
+        {
+            _context.Remove(Ostatki_delete);
+            return Save();
+        }
+
         public Ostatki GetOstatkiById(int OstatkiId)
         {
             return _context.Ostatkis.Where(r => r.id_Ostatki == OstatkiId).FirstOrDefault();
@@ -33,6 +46,18 @@ namespace Warehouse_operationsApp.Repository
         public bool OstatkiExists(int OstatkiId)
         {
             return _context.Ostatkis.Any(r => r.id_Ostatki == OstatkiId);
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
+
+        public bool UpdateOstatki(int id_warehouses, int ProductId, Ostatki Ostatki_update)
+        {
+            _context.Update(Ostatki_update);
+            return Save();
         }
     }
 }

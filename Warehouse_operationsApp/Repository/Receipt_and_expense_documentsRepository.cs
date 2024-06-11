@@ -32,5 +32,29 @@ namespace Warehouse_operationsApp.Repository
         {
             return _context.Receipt_And_Expense_Documentss.Any(o => o.id_doc == id_doc);
         }
+
+        public bool CreateReceipt_and_expense_documents(int id_users, Receipt_and_expense_documents Receipt_and_expense_documents_create)
+        {
+            _context.Add(Receipt_and_expense_documents_create);
+            return Save();
+        }
+
+        public bool UpdateReceipt_and_expense_documents(int id_users, Receipt_and_expense_documents Receipt_and_expense_documents_update)
+        {
+            _context.Update(Receipt_and_expense_documents_update);
+            return Save();
+        }
+
+        public bool DeleteReceipt_and_expense_documents(Receipt_and_expense_documents Receipt_and_expense_documents_delete)
+        {
+            _context.Remove(Receipt_and_expense_documents_delete);
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
     }
 }

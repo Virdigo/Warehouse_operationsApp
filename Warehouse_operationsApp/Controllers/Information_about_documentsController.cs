@@ -62,5 +62,92 @@ namespace Warehouse_operationsApp.Controllers
 
             return Ok(producttos);
         }
+
+
+        [HttpPost("POST")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(400)]
+        public IActionResult CreateInformation_about_documents([FromQuery] int ProductID, [FromQuery] int id_doc, [FromQuery] int id_suppliers, [FromBody] Information_about_documentsDto Information_about_documents_create)
+        {
+            if (Information_about_documents_create == null)
+                return BadRequest(ModelState);
+
+            var Information_about_documents = _information_About_DocumentsRepository.GetInformation_About_DocumentssList()
+                .Where(c => c.Quanity.ToString().Trim().ToUpper() == Information_about_documents_create.Quanity.ToString().TrimEnd().ToUpper())
+                .FirstOrDefault();
+
+            if (Information_about_documents != null)
+            {
+                ModelState.AddModelError("", "Information_about_documents already exists");
+                return StatusCode(422, ModelState);
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var Information_about_documentsMap = _mapper.Map<Information_about_documents>(Information_about_documents_create);
+
+            if (!_information_About_DocumentsRepository.CreateInformation_about_documents(ProductID, id_doc, id_suppliers, Information_about_documentsMap))
+            {
+                ModelState.AddModelError("", "Something went wrong while saving");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Successfully created");
+        }
+
+        [HttpPut("PUT/{id_inf_doc}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult UpdateInformation_about_documents(int id_inf_doc, [FromQuery] int ProductID, [FromQuery] int id_doc, [FromQuery] int id_suppliers,
+            [FromBody] Information_about_documentsDto Information_about_documents_update)
+        {
+            if (Information_about_documents_update == null)
+                return BadRequest(ModelState);
+
+            if (id_inf_doc != Information_about_documents_update.id_inf_doc)
+                return BadRequest(ModelState);
+
+            if (!_information_About_DocumentsRepository.Information_about_documentsExists(id_inf_doc))
+                return BadRequest(new { message = "Error: Invalid Id" });
+
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var Information_aboutMap = _mapper.Map<Information_about_documents>(Information_about_documents_update);
+
+            if (!_information_About_DocumentsRepository.UpdateInformation_about_documents(ProductID, id_doc, id_suppliers, Information_aboutMap))
+            {
+                ModelState.AddModelError("", "Something went wrong updating Information");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+        }
+
+        [HttpDelete("DELETE/{id_inf_doc}")]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public IActionResult DeleteInformation_about_documents(int id_inf_doc)
+        {
+            if (!_information_About_DocumentsRepository.Information_about_documentsExists(id_inf_doc))
+            {
+                return BadRequest(new { message = "Error: Invalid Id" });
+            }
+
+            var DeleteInformation_about_documents = _information_About_DocumentsRepository.GetInformation_About_DocumentssById(id_inf_doc);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!_information_About_DocumentsRepository.DeleteInformation_about_documents(DeleteInformation_about_documents))
+            {
+                ModelState.AddModelError("", "Something went wrong deleting category");
+            }
+
+            return NoContent();
+        }
     }
 }

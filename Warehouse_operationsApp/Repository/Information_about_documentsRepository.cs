@@ -34,5 +34,29 @@ namespace Warehouse_operationsApp.Repository
         {
             return _context.Information_About_Documentss.Any(r => r.id_inf_doc == id_inf_doc);
         }
+
+        public bool CreateInformation_about_documents(int ProductID, int id_doc, int id_suppliers, Information_about_documents Information_about_documents_create)
+        {
+            _context.Add(Information_about_documents_create);
+            return Save();
+        }
+
+        public bool UpdateInformation_about_documents(int ProductID, int id_doc, int id_suppliers, Information_about_documents Information_about_documents_update)
+        {
+            _context.Update(Information_about_documents_update);
+            return Save();
+        }
+
+        public bool DeleteInformation_about_documents(Information_about_documents Information_about_documents_delete)
+        {
+            _context.Remove(Information_about_documents_delete);
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
     }
 }

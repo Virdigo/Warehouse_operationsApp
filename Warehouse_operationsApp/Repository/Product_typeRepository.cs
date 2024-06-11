@@ -34,5 +34,29 @@ namespace Warehouse_operationsApp.Repository
         {
             return _context.Product_Types.Any(c => c.id_product_type == id);
         }
+
+        public bool CreateProduct_type(Product_type Product_type_create)
+        {
+            _context.Add(Product_type_create);
+            return Save();
+        }
+
+        public bool UpdateProduct_type(Product_type Product_type_update)
+        {
+            _context.Update(Product_type_update);
+            return Save();
+        }
+
+        public bool DeleteProduct_type(Product_type Product_type_delete)
+        {
+            _context.Remove(Product_type_delete);
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
     }
 }
