@@ -34,5 +34,29 @@ namespace Warehouse_operationsApp.Repository
         {
             return _context.Units.Any(r => r.id_unit == idUnit);
         }
+
+        public bool CreateUnit(Unit Unit_create)
+        {
+            _context.Add(Unit_create);
+            return Save();
+        }
+
+        public bool UpdateUnit(Unit Unit_update)
+        {
+            _context.Update(Unit_update);
+            return Save();
+        }
+
+        public bool DeleteUnit(Unit Unit_delete)
+        {
+            _context.Remove(Unit_delete);
+            return Save();
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false;
+        }
     }
 }

@@ -144,7 +144,7 @@ namespace Warehouse_operationsApp.Controllers
 
             if (!_information_About_DocumentsRepository.DeleteInformation_about_documents(DeleteInformation_about_documents))
             {
-                ModelState.AddModelError("", "Something went wrong deleting category");
+                ModelState.AddModelError("", "Something went wrong deleting Information_About_Documentss");
             }
 
             return NoContent();

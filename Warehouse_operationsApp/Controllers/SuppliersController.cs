@@ -117,7 +117,7 @@ namespace Warehouse_operationsApp.Controllers
 
             if (!_suppliersRepository.UpdateSuppliers(SuppliersMap))
             {
-                ModelState.AddModelError("", "Something went wrong updating category");
+                ModelState.AddModelError("", "Something went wrong updating Suppliers");
                 return StatusCode(500, ModelState);
             }
 

@@ -8,5 +8,9 @@ namespace Warehouse_operationsApp.Repository.Interfaces
         Users GetUsersById(int User_id);
         ICollection<Users> GetDoljnostiByUsers(int Id_doljnosti);
         bool UsersExists(int User_id);
+        bool CreateUsers(int id_doljnosti, Users Users_create);
+        bool UpdateUsers(int id_doljnosti, Users Users_update);
+        bool DeleteUsers(Users Users_delete);
+        bool Save();
     }
 }

@@ -25,6 +25,9 @@ namespace Warehouse_operationsApp.Helper
             CreateMap<Product_typeDto, Product_type>();
             CreateMap<ProductsDto, Product>();
             CreateMap<Receipt_and_expense_documentsDto, Receipt_and_expense_documents>();
+            CreateMap<UnitDto, Unit>();
+            CreateMap<UsersDto, Users>();
+            CreateMap<WarehousesDto, Warehouses>();
         }
     }
 }
