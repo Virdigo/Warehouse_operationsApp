@@ -147,5 +147,23 @@ namespace Warehouse_operationsApp.Controllers
 
             return NoContent();
         }
+        [HttpPost("authenticate")]
+        [ProducesResponseType(200, Type = typeof(UsersDto))]
+        [ProducesResponseType(400)]
+        public IActionResult Authenticate([FromBody] LoginDto loginDto)
+        {
+            if (loginDto == null)
+                return BadRequest(ModelState);
+
+            var user = _usersRepository.GetUsersList()
+                .FirstOrDefault(u => u.Login == loginDto.Login && u.password == loginDto.Password);
+
+            if (user == null)
+            {
+                return Unauthorized(new { message = "Неправильный login or password" });
+            }
+
+            return Ok(_mapper.Map<UsersDto>(user));
+        }
     }
 }
